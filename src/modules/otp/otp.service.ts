@@ -3,6 +3,9 @@ import { createHash } from 'node:crypto'
 
 import { RedisService } from '@/infrastructure/redis/redis.service'
 
+/** OTP hash lifetime in Redis (Redis `EX` is seconds). */
+export const OTP_TTL_SECONDS = 300
+
 @Injectable()
 export class OtpService {
 	public constructor(private readonly redisService: RedisService) {}
@@ -23,7 +26,7 @@ export class OtpService {
 			`otp:${type}:${identifier}`,
 			hash,
 			'EX',
-			300
+			OTP_TTL_SECONDS
 		)
 
 		return code

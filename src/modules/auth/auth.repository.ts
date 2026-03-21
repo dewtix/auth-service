@@ -4,7 +4,7 @@ import { AccountCreateInput } from '@prisma/generated/models'
 
 import { PrismaService } from '@/infrastructure/prisma/prisma.service'
 
-Injectable()
+@Injectable()
 export class AuthRepository {
 	public constructor(private readonly prismaService: PrismaService) {}
 
