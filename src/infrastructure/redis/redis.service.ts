@@ -22,7 +22,7 @@ export class RedisService
 		super({
 			username: configService.get('redis.user', { infer: true }),
 			password: configService.get('redis.password', { infer: true }),
-			host: configService.get('redis.password', { infer: true }),
+			host: configService.get('redis.host', { infer: true }),
 			port: configService.get('redis.port', { infer: true }),
 			maxRetriesPerRequest: 5,
 			enableOfflineQueue: true
