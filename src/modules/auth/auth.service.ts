@@ -1,3 +1,4 @@
+import { RpcStatus } from '@dewtix/common'
 import type {
 	SendOtpRequest,
 	VerifyOtpRequest
@@ -59,7 +60,10 @@ export class AuthService {
 		else account = await this.authRepository.findByEmail(identifier)
 
 		if (!account) {
-			throw new RpcException('Account not found')
+			throw new RpcException({
+				code: RpcStatus.NOT_FOUND,
+				details: 'Account not found'
+			})
 		}
 
 		if (type === 'phone' && !account.isPhoneVerified)

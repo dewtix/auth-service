@@ -377,6 +377,16 @@
   dependencies:
     "@jridgewell/trace-mapping" "0.3.9"
 
+"@dewtix/common@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@dewtix/common/-/common-1.0.0.tgz#8ff1540aa6b1f2f367c2c6cdf3d4ea8d2b26f3e5"
+  integrity sha512-4UE5JIT8CyhOQHNfNuUM2Tzb2UdCpbTTjuxqUghJHYDJhXfpRoEwpZzPIzcAwiUVG8o4RLxOzEqBEbTTFecTOA==
+  dependencies:
+    "@dewtix/contracts" "^1.0.1"
+    "@nestjs/common" "^11.1.9"
+    "@nestjs/config" "^4.0.2"
+    "@nestjs/microservices" "^11.1.9"
+
 "@dewtix/contracts@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@dewtix/contracts/-/contracts-1.0.1.tgz#3d7769d5bda461b8877c5a584b89219025b84a39"
@@ -1068,7 +1078,18 @@
     load-esm "1.0.3"
     tslib "2.8.1"
 
-"@nestjs/config@^4.0.3":
+"@nestjs/common@^11.1.9":
+  version "11.1.17"
+  resolved "https://registry.yarnpkg.com/@nestjs/common/-/common-11.1.17.tgz#58a330f3f6748cf92b0a244a2a232cfddba1bfd2"
+  integrity sha512-hLODw5Abp8OQgA+mUO4tHou4krKgDtUcM9j5Ihxncst9XeyxYBTt2bwZm4e4EQr5E352S4Fyy6V3iFx9ggxKAg==
+  dependencies:
+    uid "2.0.2"
+    file-type "21.3.2"
+    iterare "1.2.1"
+    load-esm "1.0.3"
+    tslib "2.8.1"
+
+"@nestjs/config@^4.0.2", "@nestjs/config@^4.0.3":
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/@nestjs/config/-/config-4.0.3.tgz#bb24a5f64e4e3ccf6fbf9e02f63303d14d7f308e"
   integrity sha512-FQ3M3Ohqfl+nHAn5tp7++wUQw0f2nAk+SFKe8EpNRnIifPqvfJP6JQxPKtFLMOHbyer4X646prFG4zSRYEssQQ==
@@ -1098,6 +1119,14 @@
   version "11.1.16"
   resolved "https://registry.yarnpkg.com/@nestjs/microservices/-/microservices-11.1.16.tgz#6f445c44adcee88af983830e0667c93ccefe2869"
   integrity sha512-eG/ArIq0UJyR3i/GTYuApA4OZylhuLGacVaVT9mMxQgT7ZTpp5CZgOwLNdcUUdOS6qypK3waG1m2AC54xzdf0Q==
+  dependencies:
+    iterare "1.2.1"
+    tslib "2.8.1"
+
+"@nestjs/microservices@^11.1.9":
+  version "11.1.17"
+  resolved "https://registry.yarnpkg.com/@nestjs/microservices/-/microservices-11.1.17.tgz#f2b1aa25e24532377477a437583f1af002118602"
+  integrity sha512-rubBPEEXS9PwA3LwdNN/ytjEUmON+d8+4fbiUCIFGW8i+rR/g36vrpwuvoAzcGpxlu45/TpZPfHTb0nJciG9Yw==
   dependencies:
     iterare "1.2.1"
     tslib "2.8.1"
@@ -3130,6 +3159,16 @@ file-type@21.3.0:
   version "21.3.0"
   resolved "https://registry.yarnpkg.com/file-type/-/file-type-21.3.0.tgz#03334acfe59cc22f72fce2a1327c5a1190f0b7de"
   integrity sha512-8kPJMIGz1Yt/aPEwOsrR97ZyZaD1Iqm8PClb1nYFclUCkBi0Ma5IsYNQzvSFS9ib51lWyIw5mIT9rWzI/xjpzA==
+  dependencies:
+    "@tokenizer/inflate" "^0.4.1"
+    strtok3 "^10.3.4"
+    token-types "^6.1.1"
+    uint8array-extras "^1.4.0"
+
+file-type@21.3.2:
+  version "21.3.2"
+  resolved "https://registry.yarnpkg.com/file-type/-/file-type-21.3.2.tgz#b28bb3a19ea4b03f59af31546b9d95ee8a3623eb"
+  integrity sha512-DLkUvGwep3poOV2wpzbHCOnSKGk1LzyXTv+aHFgN2VFl96wnp8YA9YjO2qPzg5PuL8q/SW9Pdi6WTkYOIh995w==
   dependencies:
     "@tokenizer/inflate" "^0.4.1"
     strtok3 "^10.3.4"
