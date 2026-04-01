@@ -2,8 +2,10 @@ import { RpcStatus } from '@dewtix/common'
 import { convertEnum } from '@dewtix/common'
 import {
 	ConfirmEmailChangeRequest,
+	ConfirmPhoneChangeRequest,
 	GetAccountRequest,
-	InitEmailChangeRequest
+	InitEmailChangeRequest,
+	InitPhoneChangeRequest
 } from '@dewtix/contracts/gen/account'
 import { Injectable } from '@nestjs/common'
 import { RpcException } from '@nestjs/microservices'
@@ -60,12 +62,8 @@ export class AccountService {
 				details: 'Email already in use'
 			})
 
-		const code = await this.otpService.send(email, 'email')
-
-		await this.messagingService.emailChanged({
-			email,
-			code
-		})
+		const { code, hash } = await this.otpService.send(email, 'email')
+		console.log('Account Service Code: ', code)
 
 		await this.accountRepository.upsertPendingChange({
 			accountId: userId,
@@ -112,6 +110,68 @@ export class AccountService {
 		})
 
 		await this.accountRepository.deletePendingChange(userId, 'email')
+
+		return { ok: true }
+	}
+
+	public async initPhoneChange(data: InitPhoneChangeRequest) {
+		const { phone, userId } = data
+
+		const existing = await this.userRepository.findByPhone(phone)
+
+		if (existing)
+			throw new RpcException({
+				code: RpcStatus.ALREADY_EXISTS,
+				details: 'Phone already in use'
+			})
+
+		const { code, hash } = await this.otpService.send(phone, 'phone')
+
+		await this.accountRepository.upsertPendingChange({
+			accountId: userId,
+			type: 'phone',
+			value: phone,
+			codeHash: hash,
+			expiresAt: new Date(Date.now() + 5 * 60 * 1000)
+		})
+
+		return { ok: true }
+	}
+
+	public async confirmPhoneChange(data: ConfirmPhoneChangeRequest) {
+		const { phone, code, userId } = data
+
+		const pending = await this.accountRepository.findPendingChange(
+			userId,
+			'phone'
+		)
+
+		if (!pending)
+			throw new RpcException({
+				code: RpcStatus.NOT_FOUND,
+				details: 'No pending request'
+			})
+
+		if (pending.value !== phone)
+			throw new RpcException({
+				code: RpcStatus.INVALID_ARGUMENT,
+				details: 'Phone mismatch'
+			})
+
+		if (pending.expiresAt < new Date())
+			throw new RpcException({
+				code: RpcStatus.NOT_FOUND,
+				details: 'Code expired'
+			})
+
+		this.otpService.verify(pending.value, code, 'phone')
+
+		await this.userRepository.update(userId, {
+			phone,
+			isPhoneVerified: true
+		})
+
+		await this.accountRepository.deletePendingChange(userId, 'phone')
 
 		return { ok: true }
 	}

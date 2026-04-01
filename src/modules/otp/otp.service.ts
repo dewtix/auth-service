@@ -31,7 +31,7 @@ export class OtpService {
 			OTP_TTL_SECONDS
 		)
 
-		return code
+		return { code, hash }
 	}
 
 	public async verify(

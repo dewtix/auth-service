@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common'
 import type { Account, PendingContactChange } from '@prisma/generated/client'
-import type { PendingContactChangeUpdateInput } from '@prisma/generated/models'
 
 import { PrismaService } from '@/infrastructure/prisma/prisma.service'
 
@@ -16,18 +15,19 @@ export class AccountRepository {
 		})
 	}
 
-	public findPendingChang(
+	public findPendingChange(
 		accountId: string,
 		type: 'email' | 'phone'
 	): Promise<PendingContactChange> {
-		return this.prismaService.pendingContactChange.findFirst({
+		return this.prismaService.pendingContactChange.findUnique({
 			where: {
-				accountId,
-				type
+				accountId_type: {
+					accountId,
+					type
+				}
 			}
 		})
 	}
-
 	public upsertPendingChange(data: {
 		accountId: string
 		type: 'email' | 'phone'
