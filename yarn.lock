@@ -377,10 +377,10 @@
   dependencies:
     "@jridgewell/trace-mapping" "0.3.9"
 
-"@dewtix/common@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@dewtix/common/-/common-1.0.0.tgz#8ff1540aa6b1f2f367c2c6cdf3d4ea8d2b26f3e5"
-  integrity sha512-4UE5JIT8CyhOQHNfNuUM2Tzb2UdCpbTTjuxqUghJHYDJhXfpRoEwpZzPIzcAwiUVG8o4RLxOzEqBEbTTFecTOA==
+"@dewtix/common@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@dewtix/common/-/common-1.0.3.tgz#e8c463822f2b7a9d3d1c16c1ee433686f183751f"
+  integrity sha512-KdWC/adema3a7GP7FTP6qq842H7pEjKnRXsiyAnNrrjPNU3HP/xHVSy/Oyr25pqEeVsUsY/dKY5ORKWtSpngkg==
   dependencies:
     "@dewtix/contracts" "^1.0.1"
     "@nestjs/common" "^11.1.9"
@@ -396,10 +396,10 @@
     rxjs "^7.8.2"
     ts-proto "^2.11.5"
 
-"@dewtix/contracts@^1.0.7":
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/@dewtix/contracts/-/contracts-1.0.7.tgz#01c63c1d30ddbc8b7980e42a2a50cb5e40b0f6c7"
-  integrity sha512-Yj0j/vPfAmd64u+kRy2QiJ9V1hMvp/x2ycrf2P6A9So6MNpjrGEvGPXXu/k1jLfdGjpy5ZnsnPKtgBuqW7xVpw==
+"@dewtix/contracts@^1.0.8":
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/@dewtix/contracts/-/contracts-1.0.8.tgz#b5e094849f4ae16068dd7020ea5e106e6f9117d4"
+  integrity sha512-X3tgI5ZMcyc8P7deSQK3TR/L80LXS4jLMKHNnn5A3LHAG/PguqfcseR12CVBgB7mnPh1/jsxSA4VHCJ9xFe0mw==
   dependencies:
     "@nestjs/microservices" "^11.1.16"
     rxjs "^7.8.2"
