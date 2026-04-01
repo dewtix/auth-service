@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@dewtix/common": "^1.0.3",
-    "@dewtix/contracts": "^1.0.8",
+    "@dewtix/contracts": "^1.0.9",
     "@dewtix/core": "^1.0.3",
     "@dewtix/passport": "^1.0.1",
     "@grpc/grpc-js": "^1.14.3",

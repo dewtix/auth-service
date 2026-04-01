@@ -396,10 +396,10 @@
     rxjs "^7.8.2"
     ts-proto "^2.11.5"
 
-"@dewtix/contracts@^1.0.8":
-  version "1.0.8"
-  resolved "https://registry.yarnpkg.com/@dewtix/contracts/-/contracts-1.0.8.tgz#b5e094849f4ae16068dd7020ea5e106e6f9117d4"
-  integrity sha512-X3tgI5ZMcyc8P7deSQK3TR/L80LXS4jLMKHNnn5A3LHAG/PguqfcseR12CVBgB7mnPh1/jsxSA4VHCJ9xFe0mw==
+"@dewtix/contracts@^1.0.9":
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/@dewtix/contracts/-/contracts-1.0.9.tgz#6a40173d9f0b1bfbd5253c52023376cc41a958da"
+  integrity sha512-UNG5lji+ZGEA8Wo+QqSV9b/zn8iP9sGaNUGfvj5LokP2zKxlXUAkuMv9vIkOVInyU/N+xgwTgoz3471WN/tC6g==
   dependencies:
     "@nestjs/microservices" "^11.1.16"
     rxjs "^7.8.2"

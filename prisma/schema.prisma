@@ -8,6 +8,13 @@ datasource db {
   provider = "postgresql"
 }
 
+enum Role {
+  USER
+  ADMIN
+
+  @@map("roles")
+}
+
 model Account {
   id String @id @default(nanoid())
 
@@ -19,15 +26,28 @@ model Account {
 
   role Role @default(USER)
 
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  createdAt             DateTime               @default(now()) @map("created_at")
+  updatedAt             DateTime               @updatedAt @map("updated_at")
+  pendingContactChanges PendingContactChange[]
 
   @@map("accounts")
 }
 
-enum Role {
-  USER
-  ADMIN
+model PendingContactChange {
+  id String @id @default(nanoid())
 
-  @@map("roles")
+  type  String
+  value String
+
+  codeHash  String   @map("code_hash")
+  expiresAt DateTime @map("expires_at")
+
+  account   Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  accountId String  @map("account_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([accountId, type])
+  @@map("pending_contact_changes")
 }
