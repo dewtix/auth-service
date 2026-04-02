@@ -1,4 +1,4 @@
-import {
+import type {
 	TelegramCompleteRequest,
 	TelegramCompleteResponse,
 	TelegramConsumeRequest,
@@ -21,12 +21,12 @@ export class TelegramController {
 		return this.telegramService.getAuthUrl()
 	}
 
-	// 	@GrpcMethod('AuthService', 'TelegramVerify')
-	// 	public async verify(
-	// 		data: TelegramVerifyRequest
-	// 	): Promise<TelegramVerifyResponse> {
-	// 		return this.telegramService.verify(data)
-	// 	}
+	@GrpcMethod('AuthService', 'TelegramVerify')
+	public async verify(
+		data: TelegramVerifyRequest
+	): Promise<TelegramVerifyResponse> {
+		return this.telegramService.verify(data)
+	}
 
 	// 	@GrpcMethod('AuthService', 'TelegramComplete')
 	// 	public async complete(

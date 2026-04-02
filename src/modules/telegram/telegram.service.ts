@@ -1,9 +1,16 @@
+import { RpcStatus } from '@dewtix/common'
+import { TelegramVerifyRequest } from '@dewtix/contracts/gen/auth'
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
+import { RpcException } from '@nestjs/microservices'
+import { createHash, createHmac, randomBytes } from 'crypto'
 
 import { AllConfigs } from '@/config'
 import { RedisService } from '@/infrastructure/redis/redis.service'
-import { UserRepository } from '@/shared/repositories'
+
+import { TokenService } from '../token/token.service'
+
+import { TelegramRepository } from './telegram.repository'
 
 @Injectable()
 export class TelegramService {
@@ -15,7 +22,8 @@ export class TelegramService {
 	public constructor(
 		private readonly redisService: RedisService,
 		private readonly configService: ConfigService<AllConfigs>,
-		private readonly userRespository: UserRepository
+		private readonly telegramRepository: TelegramRepository,
+		private readonly tokenService: TokenService
 	) {
 		this.BOT_ID = this.configService.get('telegram.botId', { infer: true })
 		this.BOT_TOKEN = this.configService.get('telegram.botToken', {
@@ -39,5 +47,59 @@ export class TelegramService {
 		url.searchParams.append('return_to', this.REDIRECT_ORIGIN)
 
 		return { url: url.href }
+	}
+
+	public async verify(data: TelegramVerifyRequest) {
+		const isValid = this.checkTelegramAuth(data.query)
+
+		if (!isValid)
+			throw new RpcException({
+				code: RpcStatus.UNAUTHENTICATED,
+				details: 'Invalid Telegram signature'
+			})
+
+		const telegramId = data.query.id
+
+		const exists =
+			await this.telegramRepository.findByTelegramId(telegramId)
+
+		if (exists && exists.phone) return this.tokenService.generate(exists.id)
+
+		const sessionId = randomBytes(16).toString('hex')
+
+		await this.redisService.set(
+			`telegram_session:${sessionId}`,
+			JSON.stringify({ telegramId, username: data.query.username }),
+			'EX',
+			300
+		)
+
+		return { url: `https://t.me/${this.BOT_USERNAME}?start=${sessionId}` }
+	}
+
+	private checkTelegramAuth(query: Record<string, string>) {
+		const hash = query.hash
+
+		if (!hash) return false
+
+		// Telegram API requers alphabet sorting
+		const dataCheckArr = Object.keys(query)
+			.filter(k => k !== 'hash')
+			.sort()
+			.map(k => `${k}=${query[k]}`)
+
+		const dataCheckString = dataCheckArr.join('\n')
+
+		const secretKey = createHash('sha256')
+			.update(`${this.BOT_ID}:${this.BOT_TOKEN}`)
+			.digest()
+
+		const hmac = createHmac('sha256', secretKey)
+			.update(dataCheckString)
+			.digest('hex')
+
+		const isValid = hmac === hash
+
+		return isValid
 	}
 }

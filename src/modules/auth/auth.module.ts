@@ -1,24 +1,22 @@
-import { PassportModule } from '@dewtix/passport'
 import { Module } from '@nestjs/common'
-import { ConfigService } from '@nestjs/config'
 
-import { getPassportConfig } from '@/config'
 import { UserRepository } from '@/shared/repositories'
 
 import { OtpService } from '../otp/otp.service'
+import { TokenService } from '../token/token.service'
 
 import { AuthController } from './auth.controller'
 import { AuthRepository } from './auth.repository'
 import { AuthService } from './auth.service'
 
 @Module({
-	imports: [
-		PassportModule.registerAsync({
-			useFactory: getPassportConfig,
-			inject: [ConfigService]
-		})
-	],
 	controllers: [AuthController],
-	providers: [AuthService, AuthRepository, OtpService, UserRepository]
+	providers: [
+		AuthService,
+		AuthRepository,
+		OtpService,
+		UserRepository,
+		TokenService
+	]
 })
 export class AuthModule {}

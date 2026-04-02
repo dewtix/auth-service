@@ -4,38 +4,25 @@ import type {
 	SendOtpRequest,
 	VerifyOtpRequest
 } from '@dewtix/contracts/gen/auth'
-import { PassportService, TokenPayload } from '@dewtix/passport'
 import { Injectable } from '@nestjs/common'
-import { ConfigService } from '@nestjs/config'
 import { RpcException } from '@nestjs/microservices'
 import { Account } from '@prisma/generated/client'
 
-import type { AllConfigs } from '@/config'
 import { UserRepository } from '@/shared/repositories'
 
 import { OtpService } from '../otp/otp.service'
+import { TokenService } from '../token/token.service'
 
 import { AuthRepository } from './auth.repository'
 
 @Injectable()
 export class AuthService {
-	private readonly ACCESS_TOKEN_TTL: number
-	private readonly REFRESH_TOKEN_TTL: number
-
 	public constructor(
 		private readonly authRepository: AuthRepository,
 		private readonly userRepository: UserRepository,
 		private readonly otpService: OtpService,
-		private readonly passportService: PassportService,
-		private readonly configService: ConfigService<AllConfigs>
-	) {
-		this.ACCESS_TOKEN_TTL = this.configService.get('passport.accessTtl', {
-			infer: true
-		})
-		this.REFRESH_TOKEN_TTL = this.configService.get('passport.refreshTtl', {
-			infer: true
-		})
-	}
+		private readonly tokenService: TokenService
+	) {}
 
 	public async sendOtp(data: SendOtpRequest) {
 		const { identifier, type } = data
@@ -95,13 +82,13 @@ export class AuthService {
 				isEmailVerified: true
 			})
 
-		return this.generateTokens(account.id)
+		return this.tokenService.generate(account.id)
 	}
 
 	public async refresh(data: RefreshRequest) {
 		const { refreshToken } = data
 
-		const result = this.passportService.verify(refreshToken)
+		const result = this.tokenService.verify(refreshToken)
 
 		if (!result.valid) {
 			throw new RpcException({
@@ -110,20 +97,6 @@ export class AuthService {
 			})
 		}
 
-		return this.generateTokens(result.userId)
-	}
-
-	private generateTokens(userId: string) {
-		const payload: TokenPayload = { sub: userId }
-		const accessToken = this.passportService.generate(
-			String(payload.sub),
-			this.ACCESS_TOKEN_TTL
-		)
-		const refreshToken = this.passportService.generate(
-			String(payload.sub),
-			this.REFRESH_TOKEN_TTL
-		)
-
-		return { accessToken, refreshToken }
+		return this.tokenService.generate(result.userId)
 	}
 }

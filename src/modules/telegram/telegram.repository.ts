@@ -7,11 +7,11 @@ import { PrismaService } from '@/infrastructure/prisma/prisma.service'
 export class TelegramRepository {
 	public constructor(private readonly prismaService: PrismaService) {}
 
-	// public async findByTelegramId(telegramId: string): Promise<Account | null> {
-	// 	return await this.prismaService.account.findUnique({
-	// 		where: {
-	// 			telegramId
-	// 		}
-	// 	})
-	// }
+	public async findByTelegramId(telegramId: string): Promise<Account | null> {
+		return await this.prismaService.account.findUnique({
+			where: {
+				telegramId
+			}
+		})
+	}
 }
