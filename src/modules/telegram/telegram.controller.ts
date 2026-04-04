@@ -28,17 +28,17 @@ export class TelegramController {
 		return this.telegramService.verify(data)
 	}
 
-	// 	@GrpcMethod('AuthService', 'TelegramComplete')
-	// 	public async complete(
-	// 		data: TelegramCompleteRequest
-	// 	): Promise<TelegramCompleteResponse> {
-	// 		return this.telegramService.complete(data)
-	// 	}
+	@GrpcMethod('AuthService', 'TelegramComplete')
+	public async complete(
+		data: TelegramCompleteRequest
+	): Promise<TelegramCompleteResponse> {
+		return this.telegramService.complete(data)
+	}
 
-	// 	@GrpcMethod('AuthService', 'TelegramConsume')
-	// 	public async consumeSession(
-	// 		data: TelegramConsumeRequest
-	// 	): Promise<TelegramConsumeResponse> {
-	// 		return this.telegramService.consumeSession(data)
-	// 	}
+	@GrpcMethod('AuthService', 'TelegramConsume')
+	public async consumeSession(
+		data: TelegramConsumeRequest
+	): Promise<TelegramConsumeResponse> {
+		return this.telegramService.consumeSession(data)
+	}
 }
