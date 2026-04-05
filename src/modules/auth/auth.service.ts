@@ -8,6 +8,7 @@ import { Injectable } from '@nestjs/common'
 import { RpcException } from '@nestjs/microservices'
 import { Account } from '@prisma/generated/client'
 
+import { MessagingService } from '@/infrastructure/messaging/messaging.service'
 import { UserRepository } from '@/shared/repositories'
 
 import { OtpService } from '../otp/otp.service'
@@ -18,7 +19,8 @@ export class AuthService {
 	public constructor(
 		private readonly userRepository: UserRepository,
 		private readonly otpService: OtpService,
-		private readonly tokenService: TokenService
+		private readonly tokenService: TokenService,
+		private readonly messagingService: MessagingService
 	) {}
 
 	public async sendOtp(data: SendOtpRequest) {
@@ -43,6 +45,12 @@ export class AuthService {
 		)
 
 		console.log('CODE: ', code)
+
+		await this.messagingService.otpRequested({
+			identifier,
+			type,
+			code
+		})
 
 		return { ok: true }
 	}
