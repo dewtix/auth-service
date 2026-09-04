@@ -39,19 +39,17 @@ export class AuthService {
 			})
 		}
 
-		const code = await this.otpService.send(
+		const { code: otpCode } = await this.otpService.send(
 			identifier,
 			type as 'phone' | 'email'
 		)
-
-		console.log('CODE: ', code)
-
 		await this.messagingService.otpRequested({
 			identifier,
 			type,
-			code
+			code: otpCode
 		})
 
+		console.log('CODE: ', otpCode)
 		return { ok: true }
 	}
 
