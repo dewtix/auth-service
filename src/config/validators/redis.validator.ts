@@ -1,3 +1,4 @@
+import { Type } from 'class-transformer'
 import { IsInt, IsString, Max, Min } from 'class-validator'
 
 export class RedisValidator {
@@ -10,11 +11,13 @@ export class RedisValidator {
 	@IsString()
 	public REDIS_HOST: string
 
+	@Type(() => Number)
 	@IsInt()
 	@Min(1)
 	@Max(65535)
 	public REDIS_PORT: number
 
+	@Type(() => Number)
 	@IsInt()
 	public REDIS_DB: number
 }
