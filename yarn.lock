@@ -396,10 +396,10 @@
     rxjs "^7.8.2"
     ts-proto "^2.11.5"
 
-"@dewtix/contracts@^1.1.8":
-  version "1.1.8"
-  resolved "https://registry.yarnpkg.com/@dewtix/contracts/-/contracts-1.1.8.tgz#94a2eae520bfb96bf907ba91ff5ee4776d240af3"
-  integrity sha512-KtbIfxKIJl6tXvxucv/x2OUlCShU/zk7RXUxhMYt9czOSFYzY0jORN0TeL1XLc0fnbd/YbIgXh05Isi8OQQaIg==
+"@dewtix/contracts@^1.1.10":
+  version "1.1.10"
+  resolved "https://registry.yarnpkg.com/@dewtix/contracts/-/contracts-1.1.10.tgz#d5518cc580e6793f5a86b672ea50bd2a77a2aaa8"
+  integrity sha512-wP7zBHiSvQCPiPQczhMlctzmDfajTyhKwhxnvrVE+plQAZgJfennH4mlVHABoyOr1S45Jd2hjD9QF+vkiNsNVw==
   dependencies:
     "@nestjs/microservices" "^11.1.16"
     rxjs "^7.8.2"
@@ -1208,6 +1208,11 @@
   dependencies:
     consola "^3.2.3"
 
+"@opentelemetry/api@^1.4.0":
+  version "1.9.1"
+  resolved "https://registry.yarnpkg.com/@opentelemetry/api/-/api-1.9.1.tgz#c1b0346de336ba55af2d5a7970882037baedec05"
+  integrity sha512-gLyJlPHPZYdAk1JENA9LeHejZe1Ti77/pTeFm/nMXmQH/HFZlcS/O2XJB+L8fkbrNSqhdtlvjBVjxwUYanNH5Q==
+
 "@paralleldrive/cuid2@^2.2.2":
   version "2.3.1"
   resolved "https://registry.npmjs.org/@paralleldrive/cuid2/-/cuid2-2.3.1.tgz"
@@ -2015,6 +2020,11 @@
   dependencies:
     "@webassemblyjs/ast" "1.14.1"
     "@xtuc/long" "4.2.2"
+
+"@willsoto/nestjs-prometheus@^6.1.1":
+  version "6.1.1"
+  resolved "https://registry.yarnpkg.com/@willsoto/nestjs-prometheus/-/nestjs-prometheus-6.1.1.tgz#575096a7dd2d32d69333b04367cda423d92d38fb"
+  integrity sha512-2nq5kpdnDjPTada0lFW8zpvAvBb/J5RnXquk1Abk7T1hj0paGZbseTT3eiWWJW2mVTbDKJjYTtcmvlQ/oOUC8Q==
 
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"
@@ -3150,6 +3160,11 @@ baseline-browser-mapping@^2.9.0:
   version "2.10.8"
   resolved "https://registry.npmjs.org/baseline-browser-mapping/-/baseline-browser-mapping-2.10.8.tgz"
   integrity sha512-PCLz/LXGBsNTErbtB6i5u4eLpHeMfi93aUv5duMmj6caNu6IphS4q6UevDnL36sZQv9lrP11dbPKGMaXPwMKfQ==
+
+bintrees@1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/bintrees/-/bintrees-1.0.2.tgz#49f896d6e858a4a499df85c38fb399b9aff840f8"
+  integrity sha512-VOMgTMwjAaUG580SXn3LacVgjurrbMme7ZZNYGSSV7mmtY6QQRh0Eg3pwIcntQ77DErK1L0NxkbetjcoXzVwKw==
 
 bl@^4.1.0:
   version "4.1.0"
@@ -7907,6 +7922,14 @@ project-name@^0.2.4, project-name@^0.2.5, project-name@^0.2.6:
     git-repo-name "^0.6.0"
     minimist "^1.2.0"
 
+prom-client@^15.1.3:
+  version "15.1.3"
+  resolved "https://registry.yarnpkg.com/prom-client/-/prom-client-15.1.3.tgz#69fa8de93a88bc9783173db5f758dc1c69fa8fc2"
+  integrity sha512-6ZiOBfCywsD4k1BN9IX0uZhF+tJkV8q8llP64G5Hajs4JOeVLPCwpPVcpXy3BwYiUGgyJzsJJQeOIv7+hDSq8g==
+  dependencies:
+    "@opentelemetry/api" "^1.4.0"
+    tdigest "^0.1.1"
+
 promise-breaker@^6.0.0:
   version "6.0.0"
   resolved "https://registry.npmjs.org/promise-breaker/-/promise-breaker-6.0.0.tgz"
@@ -8979,6 +9002,13 @@ tapable@^2.2.1, tapable@^2.3.0:
   version "2.3.0"
   resolved "https://registry.npmjs.org/tapable/-/tapable-2.3.0.tgz"
   integrity sha512-g9ljZiwki/LfxmQADO3dEY1CbpmXT5Hm2fJ+QaGKwSXUylMybePR7/67YW7jOrrvjEgL1Fmz5kzyAjWVWLlucg==
+
+tdigest@^0.1.1:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/tdigest/-/tdigest-0.1.3.tgz#831a1fd531f207127ab75d054d4c6c6dedab3ac7"
+  integrity sha512-zbRt+lT+/H4fRItHshczHErVCQnitJk8MfMT24MqFJf3YL7SJJPqGIGeuOdvxXxM/AHFzKBl7WoyaYwqO9s3Kw==
+  dependencies:
+    bintrees "1.0.2"
 
 template-error@^0.1.2:
   version "0.1.2"

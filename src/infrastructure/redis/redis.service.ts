@@ -27,6 +27,10 @@ export class RedisService
 			maxRetriesPerRequest: 5,
 			enableOfflineQueue: true
 		})
+
+		this.on('error', err => {
+			console.error('EARLY REDIS ERROR:', err)
+		})
 	}
 
 	public async onModuleInit() {
